@@ -14,7 +14,6 @@ idna==3.10
 importlib_metadata==8.5.0
 itsdangerous==2.2.0
 Jinja2==3.1.6
-kivy-deps.angle==0.3.3
 MarkupSafe==2.1.5
 platformdirs==3.11.0
 SQLAlchemy==2.0.41
