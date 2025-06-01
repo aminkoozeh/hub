@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}مدیریت دسته بندی‌ها{% endblock %}
+{% block content %}
+<h2>مدیریت دسته بندی‌ها</h2>
+
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <p>{{ form.name.label }}<br>{{ form.name() }}</p>
+    <p>{{ form.submit() }}</p>
+</form>
+
+<h3>دسته بندی‌های موجود:</h3>
+<ul>
+    {% for cat in categories %}
+        <li>
+            {{ cat.name }}
+            <a href="{{ url_for('main.delete_category', category_id=cat.id) }}"
+               onclick="return confirm('آیا از حذف این دسته‌بندی مطمئن هستید؟')"
+               style="color: red; margin-right: 10px;">
+                [حذف]
+            </a>
+        </li>
+    {% endfor %}
+</ul>
+{% endblock %}

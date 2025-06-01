@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}اشتراک فایل{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{{ url_for('main.index') }}">خانه</a>
+            {% if current_user.is_authenticated %}
+                <span>سلام، {{ current_user.username }}</span>
+                {% if current_user.is_admin %}
+                    <a href="{{ url_for('main.admin_dashboard') }}">پنل ادمین</a>
+                {% endif %}
+                <a href="{{ url_for('main.logout') }}">خروج</a>
+            {% else %}
+                <a href="{{ url_for('main.login') }}">ورود</a>
+                <a href="{{ url_for('main.register') }}">ثبت نام</a>
+            {% endif %}
+            <form action="{{ url_for('main.search') }}" method="get" style="display:inline;">
+                <input type="text" name="q" placeholder="جستجو..." value="{{ search_query if search_query else '' }}">
+                <button type="submit">جستجو</button>
+            </form>
+        </nav>
+    </header>
+
+    <main>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            <ul class="flashes">
+            {% for message in messages %}
+              <li>{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>© 2025 سایت اشتراک فایل</p>
+    </footer>
+</body>
+</html>

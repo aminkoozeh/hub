@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}پنل ادمین{% endblock %}
+{% block content %}
+<h2>پنل مدیریت فایل‌ها</h2>
+<a href="{{ url_for('main.upload_file') }}">آپلود فایل جدید</a> |
+<a href="{{ url_for('main.manage_categories') }}">مدیریت دسته بندی‌ها</a> |
+<a href="{{ url_for('main.manage_users') }}">مدیریت کاربران</a>
+
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+        <tr>
+            <th>عنوان</th>
+            <th>نوع</th>
+            <th>دسته بندی</th>
+            <th>ویژه</th>
+            <th>عملیات</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for file in files %}
+        <tr>
+            <td>{{ file.title }}</td>
+            <td>{{ file.file_type }}</td>
+            <td>{{ file.category.name if file.category else 'بدون دسته' }}</td>
+            <td>{{ 'بله' if file.is_special else 'خیر' }}</td>
+            <td>
+                <a href="{{ url_for('main.view_file', file_id=file.id) }}">نمایش</a> |
+                <a href="{{ url_for('main.delete_file', file_id=file.id) }}" onclick="return confirm('آیا مطمئنید؟')">حذف</a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

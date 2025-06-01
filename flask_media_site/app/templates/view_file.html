@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block title %}{{ file.title }}{% endblock %}
+{% block content %}
+<h2>{{ file.title }}</h2>
+
+{% if file.poster %}
+    <img src="{{ url_for('main.uploaded_file', filename=file.poster) }}" alt="پوستر" style="max-width:300px;">
+{% endif %}
+
+{% if file.file_type == 'audio' %}
+    <audio controls>
+        <source src="{{ url_for('main.uploaded_file', filename=file.filename) }}">
+        مرورگر شما از پخش صوت پشتیبانی نمی‌کند.
+    </audio>
+{% elif file.file_type == 'video' %}
+    <video controls width="640">
+        <source src="{{ url_for('main.uploaded_file', filename=file.filename) }}">
+        مرورگر شما از پخش ویدئو پشتیبانی نمی‌کند.
+    </video>
+{% elif file.file_type == 'book' %}
+    <a href="{{ url_for('main.uploaded_file', filename=file.filename) }}" download>دانلود فایل</a>
+{% endif %}
+
+<p>{{ file.description }}</p>
+{% endblock %}

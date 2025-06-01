@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block title %}خانه{% endblock %}
+{% block content %}
+<h1>دسته‌بندی‌ها</h1>
+
+{% if search_query %}
+    <h2>نتایج جستجو برای "{{ search_query }}"</h2>
+    {% if search_results %}
+        <ul class="file-list">
+        {% for file in search_results %}
+            <li>
+                <a href="{{ url_for('main.view_file', file_id=file.id) }}">
+                    <img src="{{ url_for('main.uploaded_file', filename=file.poster) if file.poster else url_for('static', filename='default_poster.jpg') }}" alt="پوستر" width="100">
+                    <p>{{ file.title }}</p>
+                </a>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>فایلی پیدا نشد.</p>
+    {% endif %}
+{% else %}
+    {% for category in categories %}
+        <section>
+            <h2>{{ category.name }}</h2>
+            <ul class="file-list">
+                {% for file in category.files %}
+                    <li>
+                        <a href="{{ url_for('main.view_file', file_id=file.id) }}">
+                            <img src="{{ url_for('main.uploaded_file', filename=file.poster) if file.poster else url_for('static', filename='default_poster.jpg') }}" alt="پوستر" width="100">
+                            <p>{{ file.title }}</p>
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </section>
+    {% endfor %}
+{% endif %}
+{% endblock %}

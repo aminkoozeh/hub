@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% block title %}مدیریت کاربران{% endblock %}
+{% block content %}
+<h2>مدیریت کاربران</h2>
+<table border="1" cellpadding="5" cellspacing="0">
+    <thead>
+        <tr>
+            <th>نام کاربری</th>
+            <th>ادمین</th>
+            <th>ویژه</th>
+            <th>عملیات</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+        <tr>
+            <td>{{ user.username }}</td>
+            <td>{{ 'بله' if user.is_admin else 'خیر' }}</td>
+            <td>{{ 'بله' if user.is_special else 'خیر' }}</td>
+            <td>
+                {% if user.id != current_user.id %}
+                    {% if not user.is_admin %}
+                        <a href="{{ url_for('main.promote_user', user_id=user.id) }}">ارتقا به ادمین</a> |
+                    {% else %}
+                        <a href="{{ url_for('main.demote_user', user_id=user.id) }}">حذف ادمین</a> |
+                    {% endif %}
+                {% endif %}
+                <a href="{{ url_for('main.toggle_special_user', user_id=user.id) }}">
+                    {% if user.is_special %}حذف ویژه{% else %}اعطای ویژه{% endif %}
+                </a>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

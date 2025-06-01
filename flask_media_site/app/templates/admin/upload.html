@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}آپلود فایل{% endblock %}
+{% block content %}
+<h2>آپلود فایل جدید</h2>
+<form method="POST" enctype="multipart/form-data">
+    {{ form.hidden_tag() }}
+    <p>{{ form.title.label }}<br>{{ form.title() }}</p>
+    <p>{{ form.description.label }}<br>{{ form.description(rows=4) }}</p>
+    <p>{{ form.file_type.label }}<br>{{ form.file_type() }}</p>
+    <p>{{ form.category.label }}<br>{{ form.category() }}</p>
+    <p>{{ form.file.label }}<br>{{ form.file() }}</p>
+    <p>{{ form.poster.label }}<br>{{ form.poster() }}</p>
+    <p>{{ form.is_special() }} {{ form.is_special.label }}</p>
+    <p>{{ form.submit() }}</p>
+</form>
+{% endblock %}
