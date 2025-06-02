@@ -5,7 +5,7 @@ body {
     color: #222;
     margin: 0;
     padding: 0;
-    font-size: 18px; /* ← افزایش اندازه فونت کلی سایت */
+    font-size: 25px; /* ← افزایش اندازه فونت کلی سایت */
 }
 
 header nav {
@@ -15,7 +15,7 @@ header nav {
     display: flex;
     align-items: center;
     gap: 15px;
-    min-height: 100px; /* ← تضمین ارتفاع بیشتر حتی اگر محتوا کم باشه */
+    min-height: 50px; /* ← تضمین ارتفاع بیشتر حتی اگر محتوا کم باشه */
 }
 
 header nav a {
